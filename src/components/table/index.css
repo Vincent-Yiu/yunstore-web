@@ -1,0 +1,11 @@
+.editable-row  {
+    position: absolute; 
+    font-size: 15px;
+    margin-top: -4px;
+    color: red;
+    background-color: aqua;
+  }
+
+.ant-checkbox-wrapper{
+  position: relative !important; 
+}

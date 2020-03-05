@@ -1,0 +1,7 @@
+.content {
+    position: relative;
+    margin-left: 30px;
+    margin-top: 10px;
+    background: #fff;
+    /* overflow: scroll; */
+  }

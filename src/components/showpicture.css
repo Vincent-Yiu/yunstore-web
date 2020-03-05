@@ -1,0 +1,33 @@
+.scroll-container {
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    overflow: auto;
+    padding: 8px 24px;
+    height: 100%;
+  }
+
+.ant-list-item-action
+{
+    text-align: right;
+}
+
+.rename_input
+{
+    /* border-radius: 10px; */
+}
+
+div img
+{
+    position:absolute;
+    left:0;
+    top:0;
+    width:156px;
+    height:156px;
+}
+
+.ant-checkbox-wrapper
+{
+    position:absolute;
+    /* z-index: 10;; */
+}
+

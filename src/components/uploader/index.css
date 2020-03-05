@@ -1,0 +1,159 @@
+.upload-button {
+    background: #33bdef;
+    background-image: -webkit-linear-gradient(top, #33bdef, #019ad2);
+    background-image: -moz-linear-gradient(top, #33bdef, #019ad2);
+    background-image: -ms-linear-gradient(top, #33bdef, #019ad2);
+    background-image: -o-linear-gradient(top, #33bdef, #019ad2);
+    background-image: linear-gradient(to bottom, #33bdef, #019ad2);
+    -webkit-border-radius: 6;
+    -moz-border-radius: 6;
+    border-radius: 6px;
+    text-shadow: 0px -1px 0px #5b6178;
+    -webkit-box-shadow: 0px 1px 0px 0px #f0f7fa;
+    -moz-box-shadow: 0px 1px 0px 0px #f0f7fa;
+    box-shadow: 0px 1px 0px 0px #f0f7fa;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 5px 20px 5px 20px;
+    border: solid #057fd0 1px;
+    text-decoration: none;
+    float: left;
+}
+
+.upload-button:hover {
+    color: #ffffff;
+    background: #019ad2;
+    text-decoration: none;
+}
+
+.uploader-progress {
+    margin: 30px 0 30px 0;
+    width: 100%;
+    /* display:none; */
+}
+
+.progress-container {
+    height: 7px;
+    background: #9CBD94;
+    position: relative;
+}
+
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: red;
+    width: 0;
+}
+
+.file-name {
+    width: 100%;
+    padding-right: 10%;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: keep-all;
+}
+
+.file-name-th {
+    width: 30%;
+}
+
+/* .file-name:hover
+{
+    overflow: visible;
+    white-space:normal;
+
+    height:148px;
+
+    background-color:#F2F9F9;
+
+    transition-property:background-color,height;
+
+    transition-duration:0.2s ;
+
+    transition-timing-function:linear;
+} */
+
+.file-size {
+    float: left;
+    width: 10%;
+    margin-right: 5px;
+}
+
+.file-path {
+    float: left;
+    width: 10%;
+}
+
+.file-status {
+    /* width: 40%; */
+}
+
+.file-op {
+    /* width:10%; */
+}
+
+tr {
+    border-top: 1px solid rgb(226, 226, 226);
+    border-bottom: 1px solid rgb(226, 226, 226);
+    height: 30px;
+}
+
+.uploader-list {
+    position: relative;
+    overflow: hidden;
+    overflow-y: auto;
+    height: 300px;
+    margin-top: -1px;
+}
+
+.upload-dialog {
+    position: absolute;
+    width: 633px;
+    /* height:300px; */
+    top: auto;
+    bottom: 48px;
+    left: auto;
+    right: 30px;
+    display: block;
+    visibility: visible;
+    z-index: 42;
+    border: #00a2d4 1px solid;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border: 1px solid #e2e2e2;
+    box-shadow: 0 0 10px #ccc;
+}
+
+.dialog-header {
+    height: 44px;
+    /* border: #00a2d4 1px solid; */
+}
+
+.dialog-header-title {
+    display: inline;
+    /* border: #00a2d4 1px solid; */
+    line-height: 44px;
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+.dialog-control {
+    text-align: center;
+    color: #999;
+    margin: 0 2px;
+    /* border: #00a2d4 1px solid; */
+    display: inline;
+}
+
+.dialog-close, .dialog-min {
+    float: right;
+    cursor: pointer;
+    font-size: 40px;
+    line-height: 30px;
+    margin-right: 5px;
+}

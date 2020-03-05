@@ -1,0 +1,105 @@
+.header
+{
+    /* background:#343a40; */
+    padding:0px;
+}
+
+.header-text
+{
+    margin-left:30px;
+    color:#fff;
+    font-size:20px;
+    display:inline-block;
+}
+
+.header-user
+{
+    margin-left: 650px;
+    margin-right:10px;
+    /* float:right; */
+    font-size:20px;
+    color:#fff;
+    display:inline-block;
+}
+
+.header-item
+{
+    margin-right:10px;
+    width: 200px;
+    float:right;
+    font-size:20px;
+    color:#fff;
+    /* display:inline-block; */
+    /* border:1px solid red; */
+}
+
+.breadcontainer
+{
+    border-radius: 5px;
+    background:#e9ecef;
+    height:60px;
+    border:1px solid red;
+
+}
+
+.breadcrumb
+{ 
+    margin: 0px ;
+    border-radius: 10px;
+
+    font-size:18px;
+    line-height: 45px;
+    /* border:1px solid red; */
+
+}
+
+#data
+{
+    margin-top:10px;
+}
+
+.buttoncontainer
+{
+    background:#e9ecef;
+    border-radius:5px 5px 0 0;
+    height:60px;
+    margin-top:20px;
+    border:1px solid rgba(0,0,0,.125);
+
+}
+
+.menuitems
+{
+    /* margin-top:200px; */
+    /* margin-bottom: 10px; */
+    height:60px;
+}
+
+
+
+.ant-menu.ant-menu-dark .ant-menu-item.customclass 
+{
+    background-color: transparent; 
+    height: 45px;
+}
+
+/*
+*
+{
+border:1px solid;
+border-radius:5px;
+} 
+*/
+.ant-input-search.ant-input-affix-wrapper .ant-input
+{
+    float:right;
+    width: 100% ;
+    /* border:solid 1px; */
+    border-radius: 20px;
+}
+
+.icon-customclass
+{
+    font-size: '18px';
+    vertical-align: '20%'
+}
