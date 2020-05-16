@@ -1,10 +1,9 @@
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
-import {Redirect, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
 import React from 'react';
 import 'antd/dist/antd.css';
 import './view.css';
-import EditableFormTable from '../components/table';
 const { Header, Content, Footer, Sider } = Layout;
 
 class View extends React.Component {

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import './config';
+import './config/config';
 import BasicRoute from './router/router';
 
 class App extends React.Component

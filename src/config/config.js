@@ -1,4 +1,5 @@
-global.host = "http://localhost:8080";
+// global.host = "http://localhost:8100";
+global.host="http://47.240.169.239:8100"
 
 global.fileType={
     'img':[

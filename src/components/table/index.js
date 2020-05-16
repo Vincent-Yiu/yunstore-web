@@ -1,11 +1,15 @@
 import React from 'react';
 import axios from 'axios';
-import '../../config'
-import { Table, Input, InputNumber, Popconfirm, Form, Divider} from 'antd';
+import '../../config/config'
+import { Table, Input, InputNumber, Popconfirm, Form, Divider } from 'antd';
 import './index.css';
 import Preview from '../preview'
 import qs from 'qs'
 import emitter from "../../utils/event";
+import { postRequest, getRequest } from "../../utils/remote";
+import SearchBar from '../searchbar'
+import FileUploader from '../uploader'
+import {dateFormatter} from '../../utils/formatter'
 
 axios.defaults.withCredentials = true;
 const host = global.host;
@@ -90,8 +94,8 @@ class Antdtable extends React.Component {
     this.setState = (state, callback) => {
       return
     }
-    this.eventEmitter.removeListener('handlesearch',()=>{})
-    this.eventEmitter.removeListener('handledelete',()=>{})
+    this.eventEmitter.removeListener('handlesearch', () => { })
+    this.eventEmitter.removeListener('handledelete', () => { })
   }
 
   componentDidUpdate(prevProps) {
@@ -104,31 +108,37 @@ class Antdtable extends React.Component {
     }
   }
 
+  /**
+   * 下载文件
+   * @param {*} record 
+   */
   handleDownload(record) {
-    const url = host + '/download?filename=' + record.filename;
-    const a = document.createElement('a')
+    var url=host+'/resource/download.do?filename='+record.filename;
+    var a = document.createElement('a')
     a.setAttribute('href', url)
     a.click();
+    
   }
 
+  /**
+   * 删除一条数据项
+   * @param {*} record 
+   */
   handleDelete(record) {
-    const id = record.id;
-    axios({
-      url: host + '/delete',
-      method: 'post',
-      params: {
-        id: id,
-      },
-      type: 'json',
-    }
-    ).then(() => {
-      const data = [...this.state.displayData];
-      this.setState({ displayData: data.filter(item => item.id !== record.id) });
-      this.data = data.filter(item => item.id !== record.id);
-    }).catch((e) => {
-      console.log(e);
-    })
+    var url = "/resource/delete";
+    postRequest(url, record)
+      .then(() => {
+        const data = [...this.state.displayData];
+        this.setState({ displayData: data.filter(item => item.id !== record.id) });
+        this.data = data.filter(item => item.id !== record.id);
+      }).catch((e) => {
+        console.log(e);
+      })
   }
+
+  /**
+   * 上传文件后 拉取数据
+   */
   handleAdd = () => {
     this.fetch();
   }
@@ -139,10 +149,18 @@ class Antdtable extends React.Component {
   }
   isEditing = record => record.id === this.state.editingKey;
 
+  /**
+   * 取消编辑
+   */
   cancel = () => {
     this.setState({ editingKey: '' });
   };
 
+  /**
+   * 文件重命名保存
+   * @param {*} form 
+   * @param {*} record 
+   */
   save(form, record) {
     form.validateFields((error, row) => {
       if (error) {
@@ -161,20 +179,16 @@ class Antdtable extends React.Component {
         newData.push(row);
         this.setState({ displayData: newData, editingKey: '' });
       }
-      axios({
-        url: host + '/rename',
-        method: 'post',
-        params: {
-          id: record.id,
-          filename: row.filename,
-        },
-        type: 'json',
-      }).then(res => {
-        console.log(res);
-      })
+      record.filename = row.filename;
+      postRequest("/resource/update", record)
+        .then(res => {
+        })
     });
   }
 
+  /**
+   * 显示预览
+   */
   showPreview = (record) => {
     this.setState({
       previewVisible: true,
@@ -182,23 +196,29 @@ class Antdtable extends React.Component {
     })
   }
 
+  /**
+   * 隐藏预览
+   */
   hidePreview = () => {
     this.setState({ previewVisible: false })
   }
 
+  /**
+   * 回收站恢复
+   */
   handleRecover = (record) => {
-    axios({
-      url: host + '/recover',
-      method: 'post',
-      params: {
-        id: record.id,
-      },
-      type: 'json',
-    }).then(res => {
-      this.fetch();
-    })
+    var url = "/resource/recover";
+    postRequest(url, record)
+      .then(() => {
+        this.fetch();
+      }).catch((e) => {
+        console.log(e);
+      })
   }
 
+  /**
+   * 操作栏选项
+   */
   action = (text, record) => {
     const { editingKey } = this.state;
     const editable = this.isEditing(record);
@@ -222,14 +242,14 @@ class Antdtable extends React.Component {
                     style={{ marginRight: 8, color: '#faad14' }}
                   >
                     保存
-              </a>
+                  </a>
                 )}
               </EditableContext.Consumer>
               <a style={{ color: '#faad14' }} onClick={() => this.cancel(record.id)}>取消</a>
             </span>) : (
               <a href="javascript:;" disabled={editingKey !== ''} onClick={() => this.edit(record.id)}>
                 重命名
-            </a>)}
+              </a>)}
         </span>) :
           (<a href="javascript:;" onClick={() => this.handleRecover(record)}>恢复</a>)
         }
@@ -248,9 +268,10 @@ class Antdtable extends React.Component {
     },
     {
       title: '上传时间',
-      dataIndex: 'uploadtime',
-      key: 'uploadtime',
+      dataIndex: 'uploadTime',
+      key: 'uploadTime',
       // editable: true,
+      render:function(text,record,index){return dateFormatter(text)},
       width: '20%',
     },
     {
@@ -277,29 +298,31 @@ class Antdtable extends React.Component {
     },
   ];
 
+  /**
+   * 拉取数据
+   */
   fetch() {
     this.setState({ loading: true });
-    axios({
-      url: host+'/data',
-      method: 'post',
-      type: 'json',
-      params: {
-        type: this.props.filetype,
-      },
-      cancelToken: this.source.token
-    }).then(res => {
-      this.data = res.data;
-      this.setState({
-        displayData: res.data,
-        loading: false,
-        scroll: (res.data.length > 13 ? { y: 600 } : {})
-      });
-    }).catch((e) => {
-      console.log(e);
-    });
-  };
 
-  onSearch = (searchText) => {
+    var url = "/resource/list";
+    var params = {'type':this.props.filetype};
+    console.log(params)
+    getRequest(url, params)
+      .then((res) => {
+        this.data = res.rows;
+        this.setState({
+          displayData: this.data,
+          loading: false,
+          scroll: (this.data.length > 13 ? { y: 600 } : {})
+        });
+      });
+  }
+
+
+  /**
+   * 按文件名搜索
+   */
+  handleSearch = (searchText) => {
     const filterData = this.data.filter(({ filename }) => {
       filename = filename.toLowerCase();
       return filename.includes(searchText)
@@ -307,25 +330,25 @@ class Antdtable extends React.Component {
     this.setState({ displayData: filterData });
   }
 
+  /**
+   * 删除所选项
+   */
+  handleDeleteSelected = () => {
+    var url = '/resource/deleteSelected';
+    var params = { ids: this.state.selectedRowKeys };
+    console.log(params);
+    postRequest(url, params)
+      .then(res => {
+        this.setState({ selectedRowKeys: [] })
+        this.fetch();
+      })
+      .catch((e) => {
+        this.setState({ selectedRowKeys: [] })
+        console.log(e);
+      })
 
-  deleteSelected = () => {
-    axios({
-      url: host + '/deleteselect',
-      method: 'post',
-      params: { ids: this.state.selectedRowKeys },
-      type: 'json',
-      paramsSerializer: function (params) {
-        return qs.stringify(params, { arrayFormat: 'repeat' })
-      }
-    }).then(() => {
-      this.setState({ selectedRowKeys: [] })
-      this.fetch();
-    }).catch((e) => {
-      this.setState({ selectedRowKeys: [] })
-
-      console.log(e);
-    })
   }
+
   render() {
     const components = {
       body: {
@@ -360,6 +383,12 @@ class Antdtable extends React.Component {
     };
     return (
       <div>
+        <div className='toolbar'>
+          <FileUploader handleAdd={this.handleAdd}></FileUploader>
+          <button className='delete-button' style={{ display: 'none' }} onClick={this.handleDeleteSelected}>删除</button>
+          <SearchBar handleSearch={this.handleSearch}></SearchBar>
+        </div>
+
         <EditableContext.Provider value={this.props.form}>
           <Table
             components={components}

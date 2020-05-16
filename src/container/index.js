@@ -3,7 +3,7 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { Link } from 'react-router-dom'
 
 import Top from './header'
-import menus from '../utils/menu'
+import menus from '../config/menu'
 import Contents from './content'
 
 import './index.css'

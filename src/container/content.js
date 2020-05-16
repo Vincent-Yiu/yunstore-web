@@ -30,6 +30,7 @@ const Trash=Loadable({
 
 const Contents = () => (
     <Content className="content" id="content">
+        <Route exact path='/' component={Home}/>
         <Route path='/home' component={Home}/>
         <Route path='/picture' component={Picture}/>
         <Route path='/document' component={Document}/>

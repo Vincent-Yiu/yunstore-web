@@ -20,7 +20,7 @@ export default class FileUploader extends React.Component {
     initUploader = () => {
         this.uploader = new Uploader({
             // target: '/api/photo/redeem-upload-token', 
-            target: global.host + '/upload',
+            target: global.host + '/resource/upload',
             // query: { upload_token: 'my_token' }
             chunkSize: 1024 * 1024 * 10,
             allowDuplicateUploads: true,
@@ -113,15 +113,16 @@ export default class FileUploader extends React.Component {
     getMissChunk = (chunk, message) => {
         // console.log(message)
         let msg = JSON.parse(message)
+        console.log(msg)
         //文件已存在 不上传
-        if (msg.status.value === 100) {
-            console.log(chunk.file.name + " exist")
-            alert("文件已存在")
+        if (msg.obj === 100) {
+            // console.log(chunk.file.name + " exist")
+            // alert("文件已存在")
             return true;
         }
 
         //文件不存在 上传整个
-        if (msg.status.value === 101) {
+        if (msg.obj === 101) {
             // console.log(chunk.file.name + " not exist  try chunk:" + chunk.offset)
             return false
         }

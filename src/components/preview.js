@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal } from 'antd';
-import '../config'
+import '../config/config'
 const mimeTypes = {
     '.css': 'text/css',
     '.gif': 'image/gif',
@@ -35,8 +35,8 @@ class Preview extends React.Component {
         this.props.hideModal();
     }
     render() {
-        let url = global.host + "/" + this.props.filename;
-        // let url = 'D:/'+ this.props.filename;
+        let url = global.host + "/" + this.props.filename+'#toolbar=0';
+        // let url = 'file:E:/data/'+ this.props.filename;
         let ext = "." + url.replace(/.+\./, "");
         let mime = mimeTypes[ext];
 
@@ -50,19 +50,22 @@ class Preview extends React.Component {
                     mask={false}
                     centered={true}
                     closable={false}
+                    // bodyStyle={{ width: '600px',height:'400px' }}
                 //   maskTransitionName={'zoom'}
                 //   transitionName={'zoom'}
                 >
-                    {/* <object data={url}
+                    <object data={url}
                         type={mime}
                         width="100%"
                         height="400px"
                         standby="加载中..."
                     >
                         不支持该文件格式.
-        </object> */}
-        <iframe src={url} width="600" height="400px"></iframe> 
+        </object>
+                    {/* <iframe src={url} style={{width:'100%',height:'400px'}} frameborder="0" allowfullscreen></iframe> */}
 
+
+{/* <iframe src="https://arxiv.org/ftp/arxiv/papers/2001/2001.09612.pdf#toolbar=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe> */}
                 </Modal>
             </div>
         )

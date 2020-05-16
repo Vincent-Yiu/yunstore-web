@@ -13,7 +13,7 @@ export default class Index extends React.Component {
     render() {
         return (
             <div>
-                <ToolBar handleAdd={this.handleAdd}></ToolBar>
+                {/* <ToolBar handleAdd={this.handleAdd}></ToolBar> */}
                 <EditableFormTable wrappedComponentRef={(form) => this.child = form} filetype='video'></EditableFormTable>
             </div>
         )

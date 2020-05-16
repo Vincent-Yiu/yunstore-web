@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect, withRouter} from "react-router-dom";
 import axios from 'axios';
-import '../../config';
+import '../../config/config';
 import './welcome.css'
 import 'animate.css';
 import { Input,  Icon } from 'antd';
