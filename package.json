@@ -6,7 +6,7 @@
     "aerolite": "^1.0.0",
     "animate.css": "^3.7.2",
     "antd": "^3.20.7",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "bootstrap-table": "^1.15.3",
     "events": "^3.0.0",
